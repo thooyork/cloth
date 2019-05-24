@@ -65,12 +65,20 @@ function init(){
     clothtexture.wrapS = clothtexture.wrapT = THREE.RepeatWrapping;
     clothtexture.repeat.set( 2, 2 );
 
+    var clothbump = new THREE.TextureLoader().load( 'img/cloth3bump.jpg', function(){
+        renderer.render( scene, camera );
+    });
+    clothbump.wrapS = clothbump.wrapT = THREE.RepeatWrapping;
+    clothbump.repeat.set( 2, 2 );
+
     var planegeometry = new THREE.PlaneGeometry( 250, 250, 50, 50 );
     planegeometry.verticesNeedUpdate = true;
     var planematerial = Physijs.createMaterial(
-        new THREE.MeshLambertMaterial({
+        new THREE.MeshStandardMaterial({
             side:THREE.DoubleSide,
             map:clothtexture,
+            bumpMap:clothbump,
+            bumpScale:.4,
            wireframe:false
         }),
         0.3, //reibung
